@@ -39,7 +39,7 @@ pip install chromadb sentence-transformers tqdm huggingface-hub
 ## Setup
 
 ### 1. Data Preparation
-You need the Urban Dictionary dataset as a CSV file named `filtered_urban_data.csv`. The CSV should have at least these columns:
+Urban Dictionary dataset, CSV file named `filtered_urban_data.csv`. The CSV should have 2 columns ['word']['definition']:
 - `word`: The slang term
 - `definition`: The definition text
 
@@ -57,7 +57,8 @@ This will:
 - Load the Urban Dictionary CSV data
 - Create embeddings for all definitions
 - Build a ChromaDB vector store at `./urban_dict_chroma_db`
-- Process up to 100,000 rows in batches of 2,500
+- Process 100,000 rows in batches of 2,500
+- smaller batch because of the chromaDB batch limit of ~5000
 
 **Note**: If the database already exists, the script will skip rebuilding. Delete the `urban_dict_chroma_db` directory to rebuild.
 
@@ -102,48 +103,13 @@ Type `exit` to quit the interface.
 - `LLM_MODEL`: Ollama model name
 - `search_kwargs["k"]`: Number of definitions to retrieve per query
 
-## System Requirements
-
-### Memory Usage
-- **Building**: Processes data in batches to manage memory
-- **Querying**: Loads embeddings and model into memory
-- **Recommended**: 8GB+ RAM for smooth operation
 
 ### Storage
-- **Vector Database**: Size depends on dataset (expect 1-5GB for 100k entries)
-- **Models**: ~1-2GB for embedding and LLM models
+- **Vector Database**: Size depends on dataset (expect ~400MB for 100k entries)
+- **Models**: ~1-2GB for embedding and LLM models (depends on the model)
+- 
 
-## Troubleshooting
-
-### Common Issues
-
-**"Chroma collection is not persistent" warning**
-- This is suppressed and doesn't affect functionality
-
-**Ollama connection errors**
-- Ensure Ollama is running: `ollama serve`
-- Verify model is available: `ollama list`
-
-**Memory issues during building**
-- Reduce `BATCH_SIZE` in `build_db_chroma.py`
-- Process fewer rows by adjusting `nrows` parameter
-
-**No results found**
-- Check if the vector database was built successfully
-- Verify the CSV data format matches expected columns
-
-### Performance Optimization
-
-**For faster building:**
-- Use GPU by changing `'device': 'cpu'` to `'device': 'cuda'`
-- Increase batch size if you have more memory
-
-**For better query results:**
-- Increase `k` value to retrieve more context
-- Adjust the prompt template for different response styles
-
-
-## Acknowledgments
+## Refrences
 
 - Urban Dictionary for the data source
 - LangChain for the RAG framework
