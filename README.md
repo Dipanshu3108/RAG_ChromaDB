@@ -29,7 +29,7 @@ pip install pandas langchain langchain-community langchain-huggingface
 pip install chromadb sentence-transformers tqdm huggingface-hub
 ```
 
-### Required Models
+### Required Models ~ !!!IMPORTANT make sure to run the model locally in a terminal so that the query.py can communicate with the model!!!
 - **Ollama Model**: `deepseek-r1:1.5b`
   ```bash
   ollama run deepseek-r1:1.5b
