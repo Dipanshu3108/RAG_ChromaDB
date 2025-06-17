@@ -106,8 +106,7 @@ Type `exit` to quit the interface.
 
 ### Storage
 - **Vector Database**: Size depends on dataset (expect ~400MB for 100k entries)
-- **Models**: ~1-2GB for embedding and LLM models (depends on the model)
-- 
+- **Models**: ~1-2GB for embedding and LLM models (depends on the model) 
 
 ## Refrences
 
